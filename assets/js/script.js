@@ -19,9 +19,24 @@ var quiz = [{
     answers: ["Number", "Boolean", "Null", "Undefined"],
     correctAnswer: "Null"},
     {   
-    question: "Which of the following is not a data type?",
-    answers: ["Numr", "Bool", "Nul", "Undef"],
-    correctAnswer: "Bool" 
+    question: "How can you add CSS to a HTML document?",
+    answers: ["Internal", "Inline", "External", "All of the above"],
+    correctAnswer: "All of the above" 
+    },
+    {
+    question: "In CSS, which property controls the size of the text?",
+    answers: ["font-size", "font-style", "text-size", "text-style"],
+    correctAnswer: "font-size"  
+    },
+    {
+    question: "Which selector is used to specify a style for a unique element?",
+    answers: ["id", "class", "text", "style"],
+    correctAnswer: "id" 
+    },
+    {
+    question: "How can you change the bottom margin of an element?",
+    answers: ["margin-bottom", "bottom-margin", "margin", "marginbottom"],
+    correctAnswer: "margin" 
     }
 ];
 
