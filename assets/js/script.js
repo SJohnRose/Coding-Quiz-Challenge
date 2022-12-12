@@ -2,12 +2,13 @@ var mainEl = document.querySelectorAll(".main");
 var scoreEl = document.querySelector("#score-section");
 var quizEl = document.querySelector("#main-quiz-section");
 var questionEl= document.querySelector("#question-section");
+var questionNumberEl = document.querySelector("#question-number");
 var answerEl = document.querySelector("#answer-section");
 var timeEl = document.querySelector("#time-section");
 var startButton = document.querySelector("#start-button");
 
 
-var highscores = [];
+var highScores = [];
 var score = 0;
 var secondsLeft = 20;
 var currentQuestion = 0;
@@ -42,7 +43,7 @@ var quiz = [{
 
 // Function to start the quiz
 startButton.addEventListener("click", function(event) {
-    document.getElementById("start-button").setAttribute("visibility", "hidden");
+    document.getElementById("start-button").setAttribute("style", "display:none;");
     startTimer();
     addAnswers(currentQuestion);
     
@@ -50,7 +51,7 @@ startButton.addEventListener("click", function(event) {
 
 // Function to add answer choices
 function addAnswers(questionNumber) {
-    var questionNumberEl = document.querySelector("#question-number");
+    
     displayElement(questionNumberEl);
     questionNumberEl.textContent = "Question " + (questionNumber+1).toString();
     var questionTextEl = document.querySelector("#question-text");
@@ -91,13 +92,11 @@ quizEl.addEventListener("click", function(event) {
         score++;
     }
     showScore();
-    if (currentQuestion <= 4) {
+    if (currentQuestion < 4) {
         currentQuestion++;
         addAnswers(currentQuestion);
     }
-    else {
-        showHighScores();
-    }
+    
 });
 
 
@@ -106,7 +105,7 @@ function startTimer() {
     var timerInterval = setInterval(function() {
         secondsLeft--;
         var showTime = timeEl.querySelector("#time");
-        showTime.setAttribute("visibility", "visible");
+        //showTime.setAttribute("style", "visibility: visible;");
         showTime.textContent = "Time :" + secondsLeft;
         if(secondsLeft === 0) {
           clearInterval(timerInterval);
@@ -130,8 +129,34 @@ function init() {
 // Function to submit initials and display high scores
 function showHighScores() {
     scoreEl.setAttribute("style", "visibility: hidden;");
-    quizEl.remove();
+    questionEl.remove();
+    questionNumberEl.remove();
+    answerEl.remove();
     timeEl.setAttribute("style", "visibility: hidden;");
+    var allDoneText = document.createElement("h2");
+    allDoneText.textContent = "All Done!";
+    quizEl.appendChild(allDoneText);
+    var highScoreText = document.createElement("h3");
+    highScoreText.textContent = "Your final score is: " + score;
+    quizEl.appendChild(highScoreText);
+    var labelText = document.createElement("label");
+    labelText.textContent = "Enter initials";
+    quizEl.appendChild(labelText);
+    var inputInitial = document.createElement("input");
+    inputInitial.setAttribute("style", "display: inline; width: 70px;");
+    inputInitial.setAttribute("type", "text");
+    quizEl.appendChild(inputInitial);
+    var submitInitial = document.createElement("button");
+    submitInitial.setAttribute("style", "display: inline; width: 50px;");
+    submitInitial.textContent = "Submit";
+    submitInitial.setAttribute("onclick", "alert('submit clicked');");   
+    quizEl.appendChild(submitInitial);
+    highScores.push(score);
+    localStorage.setItem("High-Scores", JSON.stringify(highScores));
+    var highScoreListEl = document.createElement("ol");
+
+
+
 }
 
 // Function to clear the high scores
