@@ -10,7 +10,7 @@ var startButton = document.querySelector("#start-button");
 var highscores = [];
 var score = 0;
 var secondsLeft = 20;
-var currentQuestion;
+var currentQuestion = 0;
 
 
 
@@ -44,53 +44,59 @@ var quiz = [{
 startButton.addEventListener("click", function(event) {
     document.getElementById("start-button").setAttribute("visibility", "hidden");
     startTimer();
-    for (var i=0; i<=0; i++) {
-        addAnswers(i);
-        currentQuestion=0;
-    }
+    addAnswers(currentQuestion);
+    
 });
 
 // Function to add answer choices
 function addAnswers(questionNumber) {
-    var questionNumberEl = document.createElement("h4");
-    questionNumberEl.textContent = "Question " + questionNumber+1;
-    questionEl.appendChild(questionNumberEl);
-    var questionTextEl = document.createElement("div");
+    var questionNumberEl = document.querySelector("#question-number");
+    displayElement(questionNumberEl);
+    questionNumberEl.textContent = "Question " + (questionNumber+1).toString();
+    var questionTextEl = document.querySelector("#question-text");
+    displayElement(questionTextEl);
     questionTextEl.textContent = quiz[questionNumber].question;
-    questionEl.appendChild(questionTextEl);
-    var answer = [];
+    var answerEl = document.querySelectorAll(".answer-button");
     for (var i=0; i<=3; i++) {
-        answer[i] = document.createElement("button");
-        answer[i].textContent = quiz[questionNumber].answers[i];
+        displayElement(answerEl[i]);
+        answerEl[i].textContent = quiz[questionNumber].answers[i];
         console.log(quiz[questionNumber].answers[i]);
-        answer[i].setAttribute("class","answer-button");
-        questionEl.appendChild(answer[i]);
+        
     }
     
+}
+
+function displayElement(elementName) {
+    elementName.setAttribute("style", "visibility: visible;");
 }
 
 
 
 // Function to check which answer is selected
 quizEl.addEventListener("click", function(event) {
-    var userAnswer;
+    var userAnswer = event.target.textContent;
+    var isCorrect;
     var answerButton = document.querySelectorAll(".answer-button");
-    //console.log(answerButton);
-    console.log("length : "+answerButton.length)
-    
     for(var i=0; i<answerButton.length; i++) {
-        //userAnswer = answerButton[i].textContent;
-        console.log(userAnswer);
-        console.log("userAnswer : "+event.target.textContent);
-        console.log("Curent Question "+currentQuestion);
-        console.log("Current Answer : "+quiz[currentQuestion].correctAnswer);
-        if(event.target.textContent===quiz[currentQuestion].correctAnswer) {
-            answerEl.textContent = "Correct!"
+        if(userAnswer===quiz[currentQuestion].correctAnswer) {
+            answerEl.textContent = "Correct!";
+            isCorrect=true;
         }
         else {
-            answerEl.textContent = "Incorrect!"
+            answerEl.textContent = "Incorrect!";
         }
-    
+        
+    }
+    if (isCorrect==true) {
+        score++;
+    }
+    showScore();
+    if (currentQuestion <= 4) {
+        currentQuestion++;
+        addAnswers(currentQuestion);
+    }
+    else {
+        showHighScores();
     }
 });
 
@@ -102,7 +108,6 @@ function startTimer() {
         var showTime = timeEl.querySelector("#time");
         showTime.setAttribute("visibility", "visible");
         showTime.textContent = "Time :" + secondsLeft;
-    
         if(secondsLeft === 0) {
           clearInterval(timerInterval);
           showHighScores();
@@ -113,7 +118,7 @@ function startTimer() {
 
 // Function to display the score
 function showScore() {
-
+    scoreEl.textContent = "Current Score :" + score;
 }
 
 
@@ -124,7 +129,9 @@ function init() {
 
 // Function to submit initials and display high scores
 function showHighScores() {
-    
+    scoreEl.setAttribute("style", "visibility: hidden;");
+    quizEl.remove();
+    timeEl.setAttribute("style", "visibility: hidden;");
 }
 
 // Function to clear the high scores

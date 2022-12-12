@@ -58,9 +58,10 @@ header {
     
 }
 
-/*#score-section h3 {
-    visibility: hidden;
-}*/
+#score-section h3 {
+    font-size: 30px;
+    color:rgb(3, 3, 70);
+}
 
 #main-quiz-section {
     display: flex;
@@ -72,7 +73,20 @@ header {
     
  }
 
- #main-quiz-section button {
+ #question-number {
+    visibility: hidden;;
+ }
+
+ #question-text {
+    visibility: hidden;
+ }
+
+ .answer-button {
+    visibility: hidden;
+ }
+
+ .answer-button {
+    display: block;
     background-color: rgb(3, 3, 70);
     color: white;
     font-size: 15px;
@@ -87,6 +101,8 @@ header {
     
  }
 
+
+
  #question-section {
     display: block;
     height: 400px;
@@ -96,7 +112,8 @@ header {
     display: block;
     visibility: visible;
     height: 100px;
-    border-top: 10px;
+    border-top-width: 1px;
+    border-top-style: solid;
     border-color:black;
 }
 
