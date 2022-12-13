@@ -1,13 +1,14 @@
 * {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: rgb(3, 3, 41);
+    
 }
 
 header {
     display: flex;
     align-items: center;
     justify-content: space-around;
-    background-color: rgb(202, 202, 158);
+    background-color: rgb(241 228 238);
     width: 100%;
     height: 50px;
     
@@ -24,9 +25,9 @@ header {
     justify-content: space-around;
     flex-direction: column;
     padding: 10px;
-    background-color:rgb(212, 212, 120);
+    background-color: rgb(241 228 238);
     width: 100%;
-    height: 100px;
+    height: 200px;
     border-bottom-width: 5px;
     border-bottom-style: solid;
 
@@ -52,9 +53,9 @@ header {
 
 #score-section {
     display: flex;
-    background-color: rgb(223, 159, 117);
+    background-color: rgb(241 228 238);
     width: 20%;
-    height: 500px;
+    height: 700px;
     
 }
 
@@ -68,7 +69,7 @@ header {
     background-color: rgb(213, 176, 224);
     width: 60%;
     flex-direction: column;
-    height: 500px;
+    height: 700px;
     align-items: left;
     
  }
@@ -121,8 +122,8 @@ header {
 #time-section {
     display: flex;
     width: 20%;
-    background-color: rgb(223, 159, 117);
-    height: 500px;
+    background-color: rgb(241 228 238);
+    height: 700px;
 }
 
 /*#time {
