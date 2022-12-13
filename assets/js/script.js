@@ -8,13 +8,15 @@ var timeEl = document.querySelector("#time-section");
 var startButton = document.querySelector("#start-button");
 
 
-var highScores = [];
+
 var score = 0;
-var secondsLeft = 20;
+var userInitial = "";
+var secondsLeft = 5;
 var currentQuestion = 0;
+var highScores = { };
 
 
-
+// Object to store questions, answer choices and correct answer
 var quiz = [{
     question: "Which of the following is not a JavaScript data type?",
     answers: ["Number", "Boolean", "Null", "Undefined"],
@@ -41,8 +43,10 @@ var quiz = [{
     }
 ];
 
+
 // Function to start the quiz
 startButton.addEventListener("click", function(event) {
+    
     document.getElementById("start-button").setAttribute("style", "display:none;");
     startTimer();
     addAnswers(currentQuestion);
@@ -61,7 +65,7 @@ function addAnswers(questionNumber) {
     for (var i=0; i<=3; i++) {
         displayElement(answerEl[i]);
         answerEl[i].textContent = quiz[questionNumber].answers[i];
-        console.log(quiz[questionNumber].answers[i]);
+        
         
     }
     
@@ -149,15 +153,28 @@ function showHighScores() {
     var submitInitial = document.createElement("button");
     submitInitial.setAttribute("style", "display: inline; width: 50px;");
     submitInitial.textContent = "Submit";
-    submitInitial.setAttribute("onclick", "alert('submit clicked');");   
     quizEl.appendChild(submitInitial);
-    highScores.push(score);
-    localStorage.setItem("High-Scores", JSON.stringify(highScores));
-    var highScoreListEl = document.createElement("ol");
-
-
+    
+    //var highScoreListEl = document.createElement("ol");
+    // Function to submit initials at end of game
+    submitInitial.addEventListener("click", function(event) {
+        alert("Submit clicked");
+        var getFromLocal = localStorage.getItem("High-Scores");
+        var localHighScores = getFromLocal ? JSON.parse(getFromLocal) : [];
+        console.log(localHighScores);
+        userInitial = inputInitial.value;
+        var newHighScore = new Object();
+        newHighScore.userInitial = userInitial;
+        newHighScore.userScore = score;
+        localHighScores.push(newHighScore);
+        console.log(newHighScore);
+        localStorage.setItem("High-Scores", JSON.stringify(localHighScores));
+        
+                
+    });
 
 }
+
 
 // Function to clear the high scores
 function clearHighScores() {
