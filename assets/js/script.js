@@ -155,28 +155,49 @@ function showHighScores() {
     submitInitial.textContent = "Submit";
     quizEl.appendChild(submitInitial);
     
-    //var highScoreListEl = document.createElement("ol");
+    
     // Function to submit initials at end of game
     submitInitial.addEventListener("click", function(event) {
         alert("Submit clicked");
         var getFromLocal = localStorage.getItem("High-Scores");
         var localHighScores = getFromLocal ? JSON.parse(getFromLocal) : [];
-        console.log(localHighScores);
         userInitial = inputInitial.value;
         var newHighScore = new Object();
         newHighScore.userInitial = userInitial;
         newHighScore.userScore = score;
         localHighScores.push(newHighScore);
-        console.log(newHighScore);
         localStorage.setItem("High-Scores", JSON.stringify(localHighScores));
-        
-                
-    });
+
+        // Remove existing elements
+        allDoneText.remove();
+        highScoreText.remove();
+        labelText.remove();
+        inputInitial.remove();
+        submitInitial.remove();
+
+        // Add new elements to show high scores
+        var highScoreTextEl = document.createElement("h2");
+        highScoreTextEl.textContent = "High Scores";
+        quizEl.appendChild(highScoreTextEl);
+        var highScoreListEl = document.createElement("ol");  
+        quizEl.appendChild(highScoreListEl);
+        var x=[];
+        x = JSON.parse(localStorage.getItem("High-Scores"));
+        console.log(x[0].userInitial);
+        var highScoreListItemEl = [];
+        for (var i=0; i<=x.length; i++) {
+            highScoreListItemEl[i] = document.createElement("li");
+            highScoreListItemEl[i].textContent = i+1 + "   " + x[i].userInitial + "   " + x[i].userScore;
+            quizEl.appendChild(highScoreListItemEl[i]);
+        }
+        }
+             
+    );
 
 }
 
 
-// Function to clear the high scores
+// Function to clear the high scores 
 function clearHighScores() {
-
+    localStorage.remove("High-Scores");
 }
