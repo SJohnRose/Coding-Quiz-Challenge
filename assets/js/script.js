@@ -1,3 +1,4 @@
+// Creating element variables to access DOM methods
 var mainEl = document.querySelectorAll(".main");
 var scoreEl = document.querySelector("#score-section");
 var quizEl = document.querySelector("#main-quiz-section");
@@ -8,12 +9,11 @@ var timeEl = document.querySelector("#time-section");
 var startButton = document.querySelector("#start-button");
 
 
-
+// Global variable declarations
 var score = 0;
 var userInitial = "";
-var secondsLeft = 10;
+var secondsLeft = 25;
 var currentQuestion = 0;
-var timeReduced = 0;
 var highScores = { };
 
 
@@ -66,8 +66,6 @@ function addAnswers(questionNumber) {
     for (var i=0; i<=3; i++) {
         displayElement(answerEl[i]);
         answerEl[i].textContent = quiz[questionNumber].answers[i];
-        
-        
     }
     
 }
@@ -81,18 +79,17 @@ function displayElement(elementName) {
 // Function to check which answer is selected
 quizEl.addEventListener("click", function(event) {
     var userAnswer = event.target.textContent;
-    event.target.setAttribute("background-color","grey");
     var isCorrect;
     var answerButton = document.querySelectorAll(".answer-button");
     for(var i=0; i<answerButton.length; i++) {
         if(userAnswer===quiz[currentQuestion].correctAnswer) {
             answerEl.textContent = "Correct!";
             isCorrect=true;
-            timeReduced = 0;
+            
         }
         else {
             answerEl.textContent = "Incorrect!";
-            timeReduced = 2;
+            
         }
         
     }
@@ -111,12 +108,7 @@ quizEl.addEventListener("click", function(event) {
 // Function to set the timer for 20 seconds
 function startTimer() {
     var timerInterval = setInterval(function() {
-        if(timeReduced === 2) {
-            secondsLeft = secondsLeft - timeReduced;
-        }
-        else {
-            secondsLeft--;
-        }
+        secondsLeft--;
         var showTime = timeEl.querySelector("#time");
         showTime.textContent = "Time :" + secondsLeft;
         if(secondsLeft === 0) {
@@ -171,7 +163,6 @@ function showHighScores() {
     
     // Function to submit initials at end of game and show high scores
     submitInitial.addEventListener("click", function(event) {
-        alert("Submit clicked");
         var getFromLocal = localStorage.getItem("High-Scores");
         var localHighScores = getFromLocal ? JSON.parse(getFromLocal) : [];
         userInitial = inputInitial.value;
