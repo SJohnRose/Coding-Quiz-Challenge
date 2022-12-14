@@ -11,8 +11,9 @@ var startButton = document.querySelector("#start-button");
 
 var score = 0;
 var userInitial = "";
-var secondsLeft = 5;
+var secondsLeft = 10;
 var currentQuestion = 0;
+var timeReduced = 0;
 var highScores = { };
 
 
@@ -80,15 +81,18 @@ function displayElement(elementName) {
 // Function to check which answer is selected
 quizEl.addEventListener("click", function(event) {
     var userAnswer = event.target.textContent;
+    event.target.setAttribute("background-color","grey");
     var isCorrect;
     var answerButton = document.querySelectorAll(".answer-button");
     for(var i=0; i<answerButton.length; i++) {
         if(userAnswer===quiz[currentQuestion].correctAnswer) {
             answerEl.textContent = "Correct!";
             isCorrect=true;
+            timeReduced = 0;
         }
         else {
             answerEl.textContent = "Incorrect!";
+            timeReduced = 2;
         }
         
     }
@@ -107,9 +111,13 @@ quizEl.addEventListener("click", function(event) {
 // Function to set the timer for 20 seconds
 function startTimer() {
     var timerInterval = setInterval(function() {
-        secondsLeft--;
+        if(timeReduced === 2) {
+            secondsLeft = secondsLeft - timeReduced;
+        }
+        else {
+            secondsLeft--;
+        }
         var showTime = timeEl.querySelector("#time");
-        //showTime.setAttribute("style", "visibility: visible;");
         showTime.textContent = "Time :" + secondsLeft;
         if(secondsLeft === 0) {
           clearInterval(timerInterval);
@@ -127,7 +135,8 @@ function showScore() {
 
 // Function to restart the Quiz
 function init() {
-
+    currentQuestion = 0;
+    addAnswers(currentQuestion);
 }
 
 // Function to submit initials and display high scores
@@ -143,20 +152,24 @@ function showHighScores() {
     var highScoreText = document.createElement("h3");
     highScoreText.textContent = "Your final score is: " + score;
     quizEl.appendChild(highScoreText);
+    var submitDivEl = document.createElement("div");
+    submitDivEl.setAttribute("class", "submit-section");
+    quizEl.appendChild(submitDivEl);
     var labelText = document.createElement("label");
+    labelText.setAttribute("class","initial-label")
     labelText.textContent = "Enter initials";
-    quizEl.appendChild(labelText);
+    submitDivEl.appendChild(labelText);
     var inputInitial = document.createElement("input");
-    inputInitial.setAttribute("style", "display: inline; width: 70px;");
+    inputInitial.setAttribute("class", "initial-input");
     inputInitial.setAttribute("type", "text");
-    quizEl.appendChild(inputInitial);
+    submitDivEl.appendChild(inputInitial);
     var submitInitial = document.createElement("button");
-    submitInitial.setAttribute("style", "display: inline; width: 50px;");
+    submitInitial.setAttribute("class", "initial-submit");
     submitInitial.textContent = "Submit";
-    quizEl.appendChild(submitInitial);
+    submitDivEl.appendChild(submitInitial);
     
     
-    // Function to submit initials at end of game
+    // Function to submit initials at end of game and show high scores
     submitInitial.addEventListener("click", function(event) {
         alert("Submit clicked");
         var getFromLocal = localStorage.getItem("High-Scores");
@@ -187,6 +200,7 @@ function showHighScores() {
         var highScoreListItemEl = [];
         for (var i=0; i<=x.length; i++) {
             highScoreListItemEl[i] = document.createElement("li");
+            highScoreListItemEl[i].setAttribute("class", "highscore-item");
             highScoreListItemEl[i].textContent = i+1 + "   " + x[i].userInitial + "   " + x[i].userScore;
             quizEl.appendChild(highScoreListItemEl[i]);
         }

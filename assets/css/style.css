@@ -1,3 +1,7 @@
+:root {
+    --quiz-font: 25px;
+}
+
 * {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: rgb(3, 3, 41);
@@ -30,13 +34,14 @@ header {
     height: 200px;
     border-bottom-width: 5px;
     border-bottom-style: solid;
+    font-size: 15px;
 
 }
 
 .quiz-info #start-button {
     background-color: rgb(3, 3, 70);
     color: white;
-    font-size: 15px;
+    font-size: 20px;
     font-style: bold;
     padding: 5px;
     text-align: center;
@@ -55,13 +60,14 @@ header {
     display: flex;
     background-color: rgb(241 228 238);
     width: 20%;
-    height: 700px;
+    height: 650px;
     
 }
 
 #score-section h3 {
-    font-size: 30px;
+    font-size: var(--quiz-font)
     color:rgb(3, 3, 70);
+    margin-left: 5px;
 }
 
 #main-quiz-section {
@@ -69,10 +75,9 @@ header {
     background-color: rgb(213, 176, 224);
     width: 60%;
     flex-direction: column;
-    height: 700px;
-    align-items: left;
-    
- }
+    height: 650px;
+    font-size: var(--quiz-font);
+}
 
  #question-number {
     visibility: hidden;;
@@ -88,20 +93,22 @@ header {
 
  .answer-button {
     display: block;
-    background-color: rgb(3, 3, 70);
+    background-color: grey;
     color: white;
-    font-size: 15px;
+    font-size: var(--quiz-font);
     font-style: bold;
     padding: 5px;
     text-align: center;
     border-radius: 10px;
-    width: 200px;
+    width: 300px;
     margin-left: 20px;
+    margin-bottom: 5px;
     padding: 10px;
     text-align: left;
-    
+ 
  }
 
+ .answer-button:cl
 
 
  #question-section {
@@ -112,7 +119,7 @@ header {
 #answer-section {
     display: block;
     visibility: visible;
-    height: 100px;
+    height: 50px;
     border-top-width: 1px;
     border-top-style: solid;
     border-color:black;
@@ -123,9 +130,30 @@ header {
     display: flex;
     width: 20%;
     background-color: rgb(241 228 238);
-    height: 700px;
+    height: 650px;
 }
 
-/*#time {
-    visibility: hidden;
-}*/
+#time-section h3 {
+    font-size: 25px;
+    margin-left: 5px;
+}
+
+.highscore-item {
+    font-size: 25 px;
+    list-style: none;
+}
+
+.submit-section {
+    display: flex;
+    flex-direction: row;
+    padding:5px;
+}
+
+.initial-label, .initial-input, .initial-submit {
+    width:150px;
+    margin-left: 5px;
+}
+
+.initial-submit {
+    font-size: 20px;
+}
