@@ -12,9 +12,10 @@ var startButton = document.querySelector("#start-button");
 // Global variable declarations
 var score = 0;
 var userInitial = "";
-var secondsLeft = 25;
+var secondsLeft = 8;
 var currentQuestion = 0;
 var highScores = { };
+var timerInterval;
 
 
 // Object to store questions, answer choices and correct answer
@@ -74,8 +75,6 @@ function displayElement(elementName) {
     elementName.setAttribute("style", "visibility: visible;");
 }
 
-
-
 // Function to check which answer is selected
 quizEl.addEventListener("click", function(event) {
     var userAnswer = event.target.textContent;
@@ -102,12 +101,13 @@ quizEl.addEventListener("click", function(event) {
         addAnswers(currentQuestion);
     }
     
-});
+}
+);
 
 
-// Function to set the timer for 20 seconds
+// // Function to set the timer for 20 seconds
 function startTimer() {
-    var timerInterval = setInterval(function() {
+    timerInterval = setInterval(function() {
         secondsLeft--;
         var showTime = timeEl.querySelector("#time");
         showTime.textContent = "Time :" + secondsLeft;
@@ -121,15 +121,10 @@ function startTimer() {
 
 // Function to display the score
 function showScore() {
-    scoreEl.textContent = "Current Score :" + score;
+    var showScore = scoreEl.querySelector("#score");
+    showScore.textContent = "Current Score :" + score;
 }
 
-
-// Function to restart the Quiz
-function init() {
-    currentQuestion = 0;
-    addAnswers(currentQuestion);
-}
 
 // Function to submit initials and display high scores
 function showHighScores() {
@@ -187,22 +182,43 @@ function showHighScores() {
         quizEl.appendChild(highScoreListEl);
         var x=[];
         x = JSON.parse(localStorage.getItem("High-Scores"));
-        console.log(x[0].userInitial);
+        console.log(x.sort());
         var highScoreListItemEl = [];
-        for (var i=0; i<=x.length; i++) {
+        for (var i=0; i<x.length; i++) {
             highScoreListItemEl[i] = document.createElement("li");
             highScoreListItemEl[i].setAttribute("class", "highscore-item");
-            highScoreListItemEl[i].textContent = i+1 + "   " + x[i].userInitial + "   " + x[i].userScore;
+            highScoreListItemEl[i].textContent = "             " + x[i].userInitial + "              " + x[i].userScore;
             quizEl.appendChild(highScoreListItemEl[i]);
         }
-        }
-             
+        
+         
+        // Add two buttons to Go Back and Clear High Scores
+        var lastDiv = document.createElement("div");
+        lastDiv.setAttribute("class", "last-div");
+        quizEl.appendChild(lastDiv);
+        var gobackButtonEl = document.createElement("button");
+        gobackButtonEl.textContent = "Go Back";
+        gobackButtonEl.setAttribute("class", "goback-button");
+        lastDiv.appendChild(gobackButtonEl);
+        var clearButtonEl = document.createElement("button");
+        clearButtonEl.textContent = "Clear High Scores";
+        clearButtonEl.setAttribute("class", "clear-button");
+        lastDiv.appendChild(clearButtonEl);
+
+        clearButtonEl.addEventListener("click", function() {
+            localStorage.removeItem("High-Scores");
+            for (var i=0; i<highScoreListItemEl.length; i++) {
+                highScoreListItemEl[i].remove();
+            }
+            highScoreListEl.remove();
+        });
+
+        gobackButtonEl.addEventListener("click", function() {
+            location.reload();
+        })
+    }
     );
 
 }
 
 
-// Function to clear the high scores 
-function clearHighScores() {
-    localStorage.remove("High-Scores");
-}
