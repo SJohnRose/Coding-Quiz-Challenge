@@ -48,7 +48,6 @@ var quiz = [{
 
 // Function to start the quiz
 startButton.addEventListener("click", function(event) {
-    
     document.getElementById("start-button").setAttribute("style", "display:none;");
     startTimer();
     addAnswers(currentQuestion);
@@ -105,7 +104,7 @@ quizEl.addEventListener("click", function(event) {
 );
 
 
-// // Function to set the timer for 20 seconds
+// Function to set the timer for 20 seconds
 function startTimer() {
     timerInterval = setInterval(function() {
         secondsLeft--;
@@ -205,6 +204,7 @@ function showHighScores() {
         clearButtonEl.setAttribute("class", "clear-button");
         lastDiv.appendChild(clearButtonEl);
 
+        // Clear the high scores when button is clicked 
         clearButtonEl.addEventListener("click", function() {
             localStorage.removeItem("High-Scores");
             for (var i=0; i<highScoreListItemEl.length; i++) {
@@ -213,6 +213,7 @@ function showHighScores() {
             highScoreListEl.remove();
         });
 
+        // Reload the web page
         gobackButtonEl.addEventListener("click", function() {
             location.reload();
         })

@@ -31,6 +31,7 @@ THEN I can save my initials and score
 The following image shows the application's appearance and functionality:
 
 
+
 ## How to access the Coding Quiz?
 Please use the following link: 
 
