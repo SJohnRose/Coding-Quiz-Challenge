@@ -34,7 +34,7 @@ https://github.com/SJohnRose/Coding-Quiz-Challenge/blob/main/assets/images/scree
 
 
 ## How to access the Coding Quiz?
-Please use the following link: 
+Please use the following link: https://github.com/SJohnRose/Coding-Quiz-Challenge 
 
 
 
