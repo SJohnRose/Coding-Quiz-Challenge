@@ -30,7 +30,7 @@ THEN I can save my initials and score
 ## Mock-up
 The following image shows the application's appearance and functionality:
 https://github.com/SJohnRose/Coding-Quiz-Challenge/blob/main/assets/images/screenshot1.PNG
-
+https://github.com/SJohnRose/Coding-Quiz-Challenge/blob/main/assets/images/screenshot2.PNG
 
 
 ## How to access the Coding Quiz?
